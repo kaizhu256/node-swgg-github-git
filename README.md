@@ -55,10 +55,10 @@ this zero-dependency package will provide a (nodejs-compatible) swagger-client f
 [![apidoc](https://kaizhu256.github.io/node-swgg-github-git/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-swgg-github-git/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
+- npm publish v2018.3.26-alpha
 - none
 
-#### changelog for v2018.3.25
-- npm publish v2018.3.25
+#### changelog for v2018.3.26-alpha
 - none
 
 #### this package requires
@@ -343,7 +343,7 @@ instruction
     },
     "swggAll": "github-all",
     "swggTags0": "github-git",
-    "version": "2018.3.25"
+    "version": "2018.3.26-alpha"
 }
 ```
 
