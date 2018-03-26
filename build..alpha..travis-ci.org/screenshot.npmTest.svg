@@ -1,9 +1,9 @@
-<svg height="2670" width="720" xmlns="http://www.w3.org/2000/svg">
-<rect height="2670" fill="#555" width="720"></rect>
+<svg height="2798" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="2798" fill="#555" width="720"></rect>
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
 <tspan x="10" y="26"></tspan>
 
-<tspan x="10" y="42">[MODE_BUILD=npmTest] - 2018-03-26T14:40:15.078Z - npm-testing /home/travis/build/kaizhu256/node-\</tspan>
+<tspan x="10" y="42">[MODE_BUILD=npmTest] - 2018-03-26T15:03:14.929Z - npm-testing /home/travis/build/kaizhu256/node-\</tspan>
 <tspan x="10" y="58">swgg-github-git</tspan>
 
 <tspan x="10" y="74"></tspan>
@@ -20,7 +20,7 @@
 
 <tspan x="10" y="186">override assets assets.swgg.swagger.json</tspan>
 
-<tspan x="10" y="202">&gt; server listening on http-port 49282</tspan>
+<tspan x="10" y="202">&gt; server listening on http-port 46500</tspan>
 
 <tspan x="10" y="218">apidocCreate - readExample /home/travis/build/kaizhu256/node-swgg-github-git/package.json</tspan>
 
@@ -64,105 +64,105 @@
 <tspan x="10" y="538"></tspan>
 
 <tspan x="10" y="554">browserTest - created electron entry-page /home/travis/build/kaizhu256/node-swgg-github-git/tmp/\</tspan>
-<tspan x="10" y="570">electron.16262c0aab50.7fe39608d5e0e.html</tspan>
+<tspan x="10" y="570">electron.16262d5b8110.567f6d6012633.html</tspan>
 
 <tspan x="10" y="586"></tspan>
 
 <tspan x="10" y="602">Xlib:  extension "RANDR" missing on display ":99.0".</tspan>
 
-<tspan x="10" y="618">[5498:0326/144016.861525:WARNING:audio_manager.cc(295)] Multiple instances of AudioManager detec\</tspan>
+<tspan x="10" y="618">[5928:0326/150316.501989:WARNING:audio_manager.cc(295)] Multiple instances of AudioManager detec\</tspan>
 <tspan x="10" y="634">ted</tspan>
 
-<tspan x="10" y="650">[5498:0326/144016.861627:WARNING:audio_manager.cc(254)] Multiple instances of AudioManager detec\</tspan>
+<tspan x="10" y="650">[5928:0326/150316.502085:WARNING:audio_manager.cc(254)] Multiple instances of AudioManager detec\</tspan>
 <tspan x="10" y="666">ted</tspan>
 
-<tspan x="10" y="682">[5532:0326/144016.957933:ERROR:sandbox_linux.cc(343)] InitializeSandbox() called with multiple t\</tspan>
+<tspan x="10" y="682">[5952:0326/150316.558501:ERROR:sandbox_linux.cc(343)] InitializeSandbox() called with multiple t\</tspan>
 <tspan x="10" y="698">hreads in process gpu-process. </tspan>
 
-<tspan x="10" y="714">[5498:0326/144017.002185:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
+<tspan x="10" y="714">[5928:0326/150316.659650:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
 <tspan x="10" y="730">l.</tspan>
 
-<tspan x="10" y="746">[5498:0326/144017.002445:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
+<tspan x="10" y="746">[5928:0326/150316.665277:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
 <tspan x="10" y="762">l.</tspan>
 
-<tspan x="10" y="778">[5498:0326/144017.002690:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
+<tspan x="10" y="778">[5928:0326/150316.676843:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
 <tspan x="10" y="794">l.</tspan>
 
-<tspan x="10" y="810">[5498:0326/144017.003223:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
+<tspan x="10" y="810">[5928:0326/150316.685774:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
 <tspan x="10" y="826">l.</tspan>
 
-<tspan x="10" y="842">[5498:0326/144017.003325:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
+<tspan x="10" y="842">[5928:0326/150316.694146:ERROR:browser_gpu_channel_host_factory.cc(125)] Failed to create channe\</tspan>
 <tspan x="10" y="858">l.</tspan>
 
 <tspan x="10" y="874"></tspan>
 
-<tspan x="10" y="890">browserTest - opened http://127.0.0.1:49282/index.default.html?modeTest=1</tspan>
+<tspan x="10" y="890">browserTest - opened http://127.0.0.1:46500/index.default.html?modeTest=1</tspan>
 
 <tspan x="10" y="906"></tspan>
 
-<tspan x="10" y="922">&gt; server listening on http-port 36847</tspan>
+<tspan x="10" y="922">&gt; server listening on http-port 39999</tspan>
 
-<tspan x="10" y="938">[5498:0326/144017.817017:INFO:CONSOLE(71)] "[browser test-case 1 of 8 passed] - testCase_buildAp\</tspan>
+<tspan x="10" y="938">[5928:0326/150317.528992:INFO:CONSOLE(71)] "[browser test-case 1 of 8 passed] - testCase_buildAp\</tspan>
 <tspan x="10" y="954">idoc_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.162\</tspan>
-<tspan x="10" y="970">62c0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="970">62d5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="986">[5498:0326/144017.828955:INFO:CONSOLE(71)] "[browser test-case 2 of 8 passed] - testCase_buildAp\</tspan>
-<tspan x="10" y="1002">p_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c\</tspan>
-<tspan x="10" y="1018">0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="986">[5928:0326/150317.531228:INFO:CONSOLE(71)] "[browser test-case 2 of 8 passed] - testCase_buildAp\</tspan>
+<tspan x="10" y="1002">p_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d\</tspan>
+<tspan x="10" y="1018">5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1034">[5498:0326/144017.831877:INFO:CONSOLE(71)] "[browser test-case 3 of 8 passed] - testCase_buildCu\</tspan>
+<tspan x="10" y="1034">[5928:0326/150317.533120:INFO:CONSOLE(71)] "[browser test-case 3 of 8 passed] - testCase_buildCu\</tspan>
 <tspan x="10" y="1050">stomOrg_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.\</tspan>
-<tspan x="10" y="1066">16262c0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1066">16262d5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1082">[5498:0326/144017.832323:INFO:CONSOLE(71)] "[browser test-case 4 of 8 passed] - testCase_buildLi\</tspan>
-<tspan x="10" y="1098">b_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c\</tspan>
-<tspan x="10" y="1114">0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1082">[5928:0326/150317.534724:INFO:CONSOLE(71)] "[browser test-case 4 of 8 passed] - testCase_buildLi\</tspan>
+<tspan x="10" y="1098">b_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d\</tspan>
+<tspan x="10" y="1114">5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1130">[5498:0326/144017.832750:INFO:CONSOLE(71)] "[browser test-case 5 of 8 passed] - testCase_buildRe\</tspan>
+<tspan x="10" y="1130">[5928:0326/150317.536287:INFO:CONSOLE(71)] "[browser test-case 5 of 8 passed] - testCase_buildRe\</tspan>
 <tspan x="10" y="1146">adme_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.162\</tspan>
-<tspan x="10" y="1162">62c0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1162">62d5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1178">[5498:0326/144017.833263:INFO:CONSOLE(71)] "[browser test-case 6 of 8 passed] - testCase_buildTe\</tspan>
+<tspan x="10" y="1178">[5928:0326/150317.537865:INFO:CONSOLE(71)] "[browser test-case 6 of 8 passed] - testCase_buildTe\</tspan>
 <tspan x="10" y="1194">st_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262\</tspan>
-<tspan x="10" y="1210">c0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1210">d5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1226">[5498:0326/144017.833369:INFO:CONSOLE(71)] "[browser test-case 7 of 8 passed] - testCase_nop_def\</tspan>
-<tspan x="10" y="1242">ault", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c0aab5\</tspan>
-<tspan x="10" y="1258">0.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1226">[5928:0326/150317.539394:INFO:CONSOLE(71)] "[browser test-case 7 of 8 passed] - testCase_nop_def\</tspan>
+<tspan x="10" y="1242">ault", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d5b811\</tspan>
+<tspan x="10" y="1258">0.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1274">[5498:0326/144017.833926:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 0. 0 .testReportDiv .\</tspan>
+<tspan x="10" y="1274">[5928:0326/150317.545023:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 0. 0 .testReportDiv .\</tspan>
 <tspan x="10" y="1290">testFailed {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.162\</tspan>
-<tspan x="10" y="1306">62c0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1306">62d5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1322">[5498:0326/144017.834034:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 1. 0 .testReportDiv i\</tspan>
-<tspan x="10" y="1338">mg {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c0aab5\</tspan>
-<tspan x="10" y="1354">0.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1322">[5928:0326/150317.545622:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 1. 0 .testReportDiv i\</tspan>
+<tspan x="10" y="1338">mg {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d5b811\</tspan>
+<tspan x="10" y="1354">0.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1370">[5498:0326/144017.834304:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 2. 1 .testReportDiv .\</tspan>
+<tspan x="10" y="1370">[5928:0326/150317.548550:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 2. 1 .testReportDiv .\</tspan>
 <tspan x="10" y="1386">displayNone {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16\</tspan>
-<tspan x="10" y="1402">262c0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1402">262d5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1418">[5498:0326/144017.834678:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 3. 1 .testReportDiv .\</tspan>
-<tspan x="10" y="1434">footer {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c0\</tspan>
-<tspan x="10" y="1450">aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1418">[5928:0326/150317.548692:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 3. 1 .testReportDiv .\</tspan>
+<tspan x="10" y="1434">footer {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d5\</tspan>
+<tspan x="10" y="1450">b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1466">[5498:0326/144017.835025:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 4. 1 .testReportDiv .\</tspan>
-<tspan x="10" y="1482">summary {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c\</tspan>
-<tspan x="10" y="1498">0aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1466">[5928:0326/150317.553209:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 4. 1 .testReportDiv .\</tspan>
+<tspan x="10" y="1482">summary {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d\</tspan>
+<tspan x="10" y="1498">5b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1514">[5498:0326/144017.835136:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 5. 1 .testReportDiv p\</tspan>
-<tspan x="10" y="1530">re {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c0aab5\</tspan>
-<tspan x="10" y="1546">0.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1514">[5928:0326/150317.555063:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 5. 1 .testReportDiv p\</tspan>
+<tspan x="10" y="1530">re {", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d5b811\</tspan>
+<tspan x="10" y="1546">0.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1562">[5498:0326/144017.835380:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 6. 1 .testReportDiv {\</tspan>
-<tspan x="10" y="1578">", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c0aab50.7f\</tspan>
-<tspan x="10" y="1594">e39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1562">[5928:0326/150317.556212:INFO:CONSOLE(71)] "validateDocumentStyleUnmatched 6. 1 .testReportDiv {\</tspan>
+<tspan x="10" y="1578">", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d5b8110.56\</tspan>
+<tspan x="10" y="1594">7f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1610">[5498:0326/144017.835685:INFO:CONSOLE(71)] "[browser test-case 8 of 8 passed] - testCase_webpage\</tspan>
-<tspan x="10" y="1626">_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c0\</tspan>
-<tspan x="10" y="1642">aab50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1610">[5928:0326/150317.556528:INFO:CONSOLE(71)] "[browser test-case 8 of 8 passed] - testCase_webpage\</tspan>
+<tspan x="10" y="1626">_default", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d5\</tspan>
+<tspan x="10" y="1642">b8110.567f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1658">[5498:0326/144018.827104:INFO:CONSOLE(71)] "----------|-----------|-----------|-----------|-----\</tspan>
+<tspan x="10" y="1658">[5928:0326/150318.547199:INFO:CONSOLE(71)] "----------|-----------|-----------|-----------|-----\</tspan>
 <tspan x="10" y="1674">------|</tspan>
 
 <tspan x="10" y="1690">File      |   % Stmts |% Branches |   % Funcs |   % Lines |</tspan>
@@ -175,12 +175,12 @@
 
 <tspan x="10" y="1754">----------|-----------|-----------|-----------|-----------|</tspan>
 
-<tspan x="10" y="1770">", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c0aab50.7f\</tspan>
-<tspan x="10" y="1786">e39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1770">", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d5b8110.56\</tspan>
+<tspan x="10" y="1786">7f6d6012633.html (71)</tspan>
 
-<tspan x="10" y="1802">[5498:0326/144018.832400:INFO:CONSOLE(71)] "created coverage file /tmp/build/coverage.html/index\</tspan>
-<tspan x="10" y="1818">.html", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262c0aab\</tspan>
-<tspan x="10" y="1834">50.7fe39608d5e0e.html (71)</tspan>
+<tspan x="10" y="1802">[5928:0326/150318.554668:INFO:CONSOLE(71)] "created coverage file /tmp/build/coverage.html/index\</tspan>
+<tspan x="10" y="1818">.html", source: file:///home/travis/build/kaizhu256/node-swgg-github-git/tmp/electron.16262d5b81\</tspan>
+<tspan x="10" y="1834">10.567f6d6012633.html (71)</tspan>
 
 <tspan x="10" y="1850">[node test-case 7 of 8 passed] - testCase_buildApp_default</tspan>
 
@@ -246,34 +246,48 @@
 
 <tspan x="10" y="2394">| test-report - npmTest - browser - /index.default.html - Mozilla/5.0 (X11; Linux x86_64) AppleW\</tspan>
 <tspan x="10" y="2410">ebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Electron/1.7.13 Safari/537.36 - 2018-03-26\</tspan>
-<tspan x="10" y="2426">T14:40:17.754Z</tspan>
+<tspan x="10" y="2426">T15:03:17.468Z</tspan>
 
-<tspan x="10" y="2442">|      13 ms            0 failed        8 passed      |</tspan>
+<tspan x="10" y="2442">|      21 ms            0 failed        8 passed      |</tspan>
 
 <tspan x="10" y="2458">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="2474">| test-report - npmTest - node - linux v6.13.1 - 2018-03-26T14:40:15.376Z</tspan>
+<tspan x="10" y="2474">| test-report - npmTest - node - linux v6.13.1 - 2018-03-26T15:03:15.231Z</tspan>
 
-<tspan x="10" y="2490">|   16898 ms            0 failed        8 passed      |</tspan>
+<tspan x="10" y="2490">|   16723 ms            0 failed        8 passed      |</tspan>
 
 <tspan x="10" y="2506">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="2522"></tspan>
+<tspan x="10" y="2522">| test-report - npmTestPublished - browser - /index.default.html - Mozilla/5.0 (X11; Linux x86_6\</tspan>
+<tspan x="10" y="2538">4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Electron/1.7.13 Safari/537.36 - 2\</tspan>
+<tspan x="10" y="2554">018-03-26T15:02:09.338Z</tspan>
 
-<tspan x="10" y="2538">created test-report file /home/travis/build/kaizhu256/node-swgg-github-git/tmp/build/test-report\</tspan>
-<tspan x="10" y="2554">.html</tspan>
+<tspan x="10" y="2570">|      22 ms            0 failed        8 passed      |</tspan>
 
-<tspan x="10" y="2570"></tspan>
+<tspan x="10" y="2586">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="2586"></tspan>
+<tspan x="10" y="2602">| test-report - npmTestPublished - node - linux v6.13.1 - 2018-03-26T15:02:06.506Z</tspan>
 
-<tspan x="10" y="2602">npmTest - 0 failed tests</tspan>
+<tspan x="10" y="2618">|   17379 ms            0 failed        8 passed      |</tspan>
 
-<tspan x="10" y="2618"></tspan>
+<tspan x="10" y="2634">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="2634"></tspan>
+<tspan x="10" y="2650"></tspan>
 
-<tspan x="10" y="2650">[MODE_BUILD=npmTest] - 2018-03-26T14:40:33.918Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="2666">created test-report file /home/travis/build/kaizhu256/node-swgg-github-git/tmp/build/test-report\</tspan>
+<tspan x="10" y="2682">.html</tspan>
+
+<tspan x="10" y="2698"></tspan>
+
+<tspan x="10" y="2714"></tspan>
+
+<tspan x="10" y="2730">npmTest - 0 failed tests</tspan>
+
+<tspan x="10" y="2746"></tspan>
+
+<tspan x="10" y="2762"></tspan>
+
+<tspan x="10" y="2778">[MODE_BUILD=npmTest] - 2018-03-26T15:03:33.631Z - EXIT_CODE - 0</tspan>
 
 </text>
 </svg>
