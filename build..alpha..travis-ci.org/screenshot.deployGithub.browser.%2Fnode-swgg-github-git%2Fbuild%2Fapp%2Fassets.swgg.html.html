@@ -1,0 +1,4698 @@
+<html lang="en" data-scrape="{
+    &quot;hrefDict&quot;: {
+        &quot;https://github.com/kaizhu256/node-swgg&quot;: &quot;swgg&quot;,
+        &quot;https://github.com/kaizhu256/node-swgg-github-git&quot;: &quot;swgg-github-git (2018.3.25)&quot;,
+        &quot;https://developer.github.com/v3/git/&quot;: &quot;Git Data&quot;,
+        &quot;https://github.com/contact&quot;: &quot;GitHub support&quot;,
+        &quot;http://git-scm.com/book/en/v1/Git-Internals&quot;: &quot;Git Internals&quot;,
+        &quot;https://developer.github.com/v3/git/blobs/&quot;: &quot;Git Blobs&quot;,
+        &quot;https://developer.github.com/v3/media/&quot;: &quot;here&quot;,
+        &quot;https://developer.github.com/v3/&quot;: &quot;GraphQL node_id&quot;,
+        &quot;https://developer.github.com/changes/2017-12-19-graphql-node-id&quot;: &quot;blog post&quot;,
+        &quot;https://developer.github.com/v3/git/commits/&quot;: &quot;Git Commits&quot;,
+        &quot;https://developer.github.com/v3/git/refs/&quot;: &quot;Git Refs&quot;,
+        &quot;https://developer.github.com/v3/git/tags/&quot;: &quot;Git Tags&quot;,
+        &quot;https://developer.github.com/v3/git/trees/&quot;: &quot;Git Trees&quot;,
+        &quot;https://developer.github.com/v3/index.html&quot;: &quot;https://developer.github.com/v3/index.html#user-agent-required&quot;
+    },
+    &quot;href&quot;: &quot;https://kaizhu256.github.io/node-swgg-github-git/build..alpha..travis-ci.org/app/assets.swgg.html#!swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Fblobs_20POST_1&quot;,
+    &quot;url&quot;: &quot;https://kaizhu256.github.io/node-swgg-github-git/build..alpha..travis-ci.org/app/assets.swgg.html&quot;,
+    &quot;bodyTextContent&quot;: &quot;nodejs initialization\n/*\n * initialize nodejs swgg-client\n * 1. download currently-loaded apis to file swagger.json:\n *     $ curl -L -o swagger.json \&quot;https://kaizhu256.github.io/node-swgg-github-git/build..alpha..travis-ci.org/app/assets.swgg.swagger.json\&quot;\n * 2. npm install swgg\n *     $ npm install swgg\n * 3. run code below to initialize nodejs swgg-client\n * 4. (optional) edit file swagger.json to suit your needs\n */\nvar swgg;\nswgg = require(\&quot;swgg\&quot;);\nswgg.apiUpdate(require(\&quot;./swagger.json\&quot;));\nconsole.log(\&quot;printing currently loaded apis ...\&quot;);\nObject.keys(swgg.apiDict).sort().forEach(function (key) {\n    console.log(\&quot;swgg.apiDict[\&quot; + JSON.stringify(key) + \&quot;].ajax\&quot;);\n});\nconsole.log(\&quot;initialized nodejs swgg-client\&quot;);\n\n            As an example, if you wanted to commit a change to a file in your repository, you would:\n- get the current commit object\n- retrieve the tree it points to\n- retrieve the content of the blob object that tree has for that particular file path\n- change the content somehow and post a new blob object with that new content, getting a blob SHA back\n- post a new tree object with that file path pointer replaced with your new blob SHA getting a tree SHA back\n- create a new commit object with the current commit SHA as the parent and the new tree SHA, getting a commit SHA back\n- update the reference of your branch to point to the new commit SHA\n\n**Note:** To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the [GraphQL ```node_id```]() in the response for many REST API v3 resources. See the [blog post]() for full details. To access ```node_id``` during the preview period, you must provide a custom [media type]() in the ```Accept``` header:\n```\napplication/vnd.github.jean-grey-preview+json\n```\n\n**Note:** To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the [GraphQL ```node_id```]() in the response for many REST API v3 resources. See the [blog post]() for full details. To access ```node_id``` during the preview period, you must provide a custom [media type]() in the ```Accept``` header:\n```\napplication/vnd.github.jean-grey-preview+json\n```\n\n**Note:** To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the [GraphQL ```node_id```]() in the response for many REST API v3 resources. See the [blog post]() for full details. To access ```node_id``` during the preview period, you must provide a custom [media type]() in the ```Accept``` header:\n```\napplication/vnd.github.jean-grey-preview+json\n```\n\n**Note:** To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the [GraphQL ```node_id```]() in the response for many REST API v3 resources. See the [blog post]() for full details. To access ```node_id``` during the preview period, you must provide a custom [media type]() in the ```Accept``` header:\n```\napplication/vnd.github.jean-grey-preview+json\n```\n\n        Git Data\nThe Git Database API gives you access to read and write raw Git objects to your Git database on GitHub and to list and update your references (branch heads and tags).\nThis basically allows you to reimplement a lot of Git functionality over our API - by creating raw objects directly into the database and updating branch references you could technically do just about anything that Git can do without having Git installed.\nGit DB API functions will return a 409 Conflict if the git repository for a Repository is empty or unavailable.  This typically means it is being created still. Contact GitHub support if this response status persists.\nFor more information on the Git object database, please read the Git Internals chapter of the Pro Git book.\nAs an example, if you wanted to commit a change to a file in your repository, you would:\n\nget the current commit object\nretrieve the tree it points to\nretrieve the content of the blob object that tree has for that particular file path\nchange the content somehow and post a new blob object with that new content, getting a blob SHA back\npost a new tree object with that file path pointer replaced with your new blob SHA getting a tree SHA back\ncreate a new commit object with the current commit SHA as the parent and the new tree SHA, getting a commit SHA back\nupdate the reference of your branch to point to the new commit SHA\n\nIt might seem complex, but it's actually pretty simple when you understand the model and it opens up a ton of things you could potentially do with the API.\nGit Blobs\nBlobs leverage these custom media types. You can read more about the use of media types in the API here.\nNote: To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the GraphQL node_id in the response for many REST API v3 resources. See the blog post for full details. To access node_id during the preview period, you must provide a custom media type in the Accept header:\napplication/vnd.github.jean-grey-preview+json\nWarning: The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact GitHub support.\nCustom media types\nThese are the supported media types for blobs. You can read more about the use of media types in the API here.\napplication/json\napplication/vnd.github.VERSION.raw\nGit Commits\nNote: To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the GraphQL node_id in the response for many REST API v3 resources. See the blog post for full details. To access node_id during the preview period, you must provide a custom media type in the Accept header:\napplication/vnd.github.jean-grey-preview+json\nWarning: The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact GitHub support.\nGit Refs\nNote: To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the GraphQL node_id in the response for many REST API v3 resources. See the blog post for full details. To access node_id during the preview period, you must provide a custom media type in the Accept header:\napplication/vnd.github.jean-grey-preview+json\nWarning: The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact GitHub support.\nGit Tags\nThis tags API only deals with tag objects - so only annotated tags, not lightweight tags.\nNote: To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the GraphQL node_id in the response for many REST API v3 resources. See the blog post for full details. To access node_id during the preview period, you must provide a custom media type in the Accept header:\napplication/vnd.github.jean-grey-preview+json\nWarning: The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact GitHub support.\nGit Trees\nno description\n\n                                                        https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                            {\n    \&quot;content\&quot;: {\n        \&quot;default\&quot;: \&quot;Content of the blob\&quot;,\n        \&quot;description\&quot;: \&quot;**Required**. The new blob's content.\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;**Required**. The new blob's content.\&quot;\n        ]\n    },\n    \&quot;encoding\&quot;: {\n        \&quot;default\&quot;: \&quot;utf-8\&quot;,\n        \&quot;description\&quot;: \&quot;The encoding used for ```content```. Currently, ```utf-8``` and ```base64``` are supported. Default: ```utf-8```.\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;The encoding used for ```content```. Currently, ```utf-8``` and ```base64``` are supported. Default: ```utf-8```.\&quot;\n        ]\n    }\n}\n\n                        try it out!\n    nodejs request\n    /*\n * reproduce api-call \&quot;POST /repos/{}/{}/git/blobs\&quot;\n * 1. initialize nodejs swgg-client from previous step\n * 2. run code below to reproduce api-call\n */\nswgg.apiDict[\&quot;POST /repos/{}/{}/git/blobs\&quot;].ajax({\n    \&quot;paramDict\&quot;: {\n        \&quot;user-agent\&quot;: \&quot;Awesome-Octocat-App\&quot;,\n        \&quot;accept\&quot;: [\n            \&quot;application/vnd.github.jean-grey-preview+json\&quot;\n        ],\n        \&quot;owner\&quot;: \&quot;owner\&quot;,\n        \&quot;repo\&quot;: \&quot;repo\&quot;,\n        \&quot;body\&quot;: {\n            \&quot;content\&quot;: \&quot;Content of the blob\&quot;,\n            \&quot;encoding\&quot;: \&quot;utf-8\&quot;\n        }\n    }\n}, function (error, data) {\n    if (error) {\n        console.error(error);\n        return;\n    }\n    console.log(data.responseJson || data.responseText);\n});\n\n    curl request\n    curl \\\n--request POST \\\n--header 'user-agent: Awesome-Octocat-App' \\\n--header 'accept: application/vnd.github.jean-grey-preview+json' \\\n--header 'Content-Type: application/json' \\\n--data-binary '{\n    \&quot;content\&quot;: \&quot;Content of the blob\&quot;,\n    \&quot;encoding\&quot;: \&quot;utf-8\&quot;\n}' \\\n\&quot;https://api.github.com/repos/owner/repo/git/blobs\&quot;\n    response status code\n\n                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                {\n    \&quot;author\&quot;: {\n        \&quot;date\&quot;: \&quot;2008-07-09T16:13:30+12:00\&quot;,\n        \&quot;email\&quot;: \&quot;schacon@gmail.com\&quot;,\n        \&quot;name\&quot;: \&quot;Scott Chacon\&quot;\n    },\n    \&quot;message\&quot;: \&quot;my commit message\&quot;,\n    \&quot;parents\&quot;: [\n        \&quot;7d1b31e74ee336d15cbd21741bc88a537ed063a0\&quot;\n    ],\n    \&quot;signature\&quot;: \&quot;-----BEGIN PGP SIGNATURE-----\\n\\niQIzBAABAQAdFiEESn/54jMNIrGSE6Tp6cQjvhfv7nAFAlnT71cACgkQ6cQjvhfv\\n7nCWwA//XVqBKWO0zF+bZl6pggvky3Oc2j1pNFuRWZ29LXpNuD5WUGXGG209B0hI\\nDkmcGk19ZKUTnEUJV2Xd0R7AW01S/YSub7OYcgBkI7qUE13FVHN5ln1KvH2all2n\\n2+JCV1HcJLEoTjqIFZSSu/sMdhkLQ9/NsmMAzpf/iIM0nQOyU4YRex9eD1bYj6nA\\nOQPIDdAuaTQj1gFPHYLzM4zJnCqGdRlg0sOM/zC5apBNzIwlgREatOYQSCfCKV7k\\nnrU34X8b9BzQaUx48Qa+Dmfn5KQ8dl27RNeWAqlkuWyv3pUauH9UeYW+KyuJeMkU\\n+NyHgAsWFaCFl23kCHThbLStMZOYEnGagrd0hnm1TPS4GJkV4wfYMwnI4KuSlHKB\\njHl3Js9vNzEUQipQJbgCgTiWvRJoK3ENwBTMVkKHaqT4x9U4Jk/XZB6Q8MA09ezJ\\n3QgiTjTAGcum9E9QiJqMYdWQPWkaBIRRz5cET6HPB48YNXAAUsfmuYsGrnVLYbG+\\nUpC6I97VybYHTy2O9XSGoaLeMI9CsFn38ycAxxbWagk5mhclNTP5mezIq6wKSwmr\\nX11FW3n1J23fWZn5HJMBsRnUCgzqzX3871IqLYHqRJ/bpZ4h20RhTyPj5c/z7QXp\\neSakNQMfbbMcljkha+ZMuVQX1K9aRlVqbmv3ZMWh+OijLYVU2bc=\\n=5Io4\\n-----END PGP SIGNATURE-----\\n\&quot;,\n    \&quot;tree\&quot;: \&quot;827efc6d56897b048c772eb4087f854f46256132\&quot;\n}\n\n    {\n    \&quot;author\&quot;: {\n        \&quot;properties\&quot;: {\n            \&quot;date\&quot;: {\n                \&quot;default\&quot;: \&quot;2008-07-09T16:13:30+12:00\&quot;,\n                \&quot;description\&quot;: \&quot;no description\&quot;,\n                \&quot;type\&quot;: \&quot;string\&quot;\n            },\n            \&quot;email\&quot;: {\n                \&quot;default\&quot;: \&quot;schacon@gmail.com\&quot;,\n                \&quot;description\&quot;: \&quot;no description\&quot;,\n                \&quot;type\&quot;: \&quot;string\&quot;\n            },\n            \&quot;name\&quot;: {\n                \&quot;default\&quot;: \&quot;Scott Chacon\&quot;,\n                \&quot;description\&quot;: \&quot;no description\&quot;,\n                \&quot;type\&quot;: \&quot;string\&quot;\n            }\n        },\n        \&quot;x-swgg-tags0\&quot;: \&quot;github-git\&quot;\n    },\n    \&quot;message\&quot;: {\n        \&quot;default\&quot;: \&quot;my commit message\&quot;,\n        \&quot;description\&quot;: \&quot;**Required**. The commit message\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;**Required**. The commit message\&quot;\n        ]\n    },\n    \&quot;parents\&quot;: {\n        \&quot;default\&quot;: [\n            \&quot;7d1b31e74ee336d15cbd21741bc88a537ed063a0\&quot;\n        ],\n        \&quot;description\&quot;: \&quot;no description\&quot;,\n        \&quot;items\&quot;: {\n            \&quot;type\&quot;: \&quot;string\&quot;\n        },\n        \&quot;type\&quot;: \&quot;array\&quot;\n    },\n    \&quot;signature\&quot;: {\n        \&quot;default\&quot;: \&quot;-----BEGIN PGP SIGNATURE-----\\n\\niQIzBAABAQAdFiEESn/54jMNIrGSE6Tp6cQjvhfv7nAFAlnT71cACgkQ6cQjvhfv\\n7nCWwA//XVqBKWO0zF+bZl6pggvky3Oc2j1pNFuRWZ29LXpNuD5WUGXGG209B0hI\\nDkmcGk19ZKUTnEUJV2Xd0R7AW01S/YSub7OYcgBkI7qUE13FVHN5ln1KvH2all2n\\n2+JCV1HcJLEoTjqIFZSSu/sMdhkLQ9/NsmMAzpf/iIM0nQOyU4YRex9eD1bYj6nA\\nOQPIDdAuaTQj1gFPHYLzM4zJnCqGdRlg0sOM/zC5apBNzIwlgREatOYQSCfCKV7k\\nnrU34X8b9BzQaUx48Qa+Dmfn5KQ8dl27RNeWAqlkuWyv3pUauH9UeYW+KyuJeMkU\\n+NyHgAsWFaCFl23kCHThbLStMZOYEnGagrd0hnm1TPS4GJkV4wfYMwnI4KuSlHKB\\njHl3Js9vNzEUQipQJbgCgTiWvRJoK3ENwBTMVkKHaqT4x9U4Jk/XZB6Q8MA09ezJ\\n3QgiTjTAGcum9E9QiJqMYdWQPWkaBIRRz5cET6HPB48YNXAAUsfmuYsGrnVLYbG+\\nUpC6I97VybYHTy2O9XSGoaLeMI9CsFn38ycAxxbWagk5mhclNTP5mezIq6wKSwmr\\nX11FW3n1J23fWZn5HJMBsRnUCgzqzX3871IqLYHqRJ/bpZ4h20RhTyPj5c/z7QXp\\neSakNQMfbbMcljkha+ZMuVQX1K9aRlVqbmv3ZMWh+OijLYVU2bc=\\n=5Io4\\n-----END PGP SIGNATURE-----\\n\&quot;,\n        \&quot;description\&quot;: \&quot;no description\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;\n    },\n    \&quot;tree\&quot;: {\n        \&quot;default\&quot;: \&quot;827efc6d56897b048c772eb4087f854f46256132\&quot;,\n        \&quot;description\&quot;: \&quot;**Required**. The SHA of the tree object this commit points to\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;**Required**. The SHA of the tree object this commit points to\&quot;\n        ]\n    }\n}\n\n                                                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                        https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                    {\n    \&quot;ref\&quot;: {\n        \&quot;default\&quot;: \&quot;refs/heads/featureA\&quot;,\n        \&quot;description\&quot;: \&quot;**Required**. The name of the fully qualified reference (ie: ```refs/heads/master```). If it doesn't start with 'refs' and have at least two slashes, it will be rejected.\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;**Required**. The name of the fully qualified reference (ie: ```refs/heads/master```). If it doesn't start with 'refs' and have at least two slashes, it will be rejected.\&quot;\n        ]\n    },\n    \&quot;sha\&quot;: {\n        \&quot;default\&quot;: \&quot;aa218f56b14c9653891f9e74264a383fa43fefbd\&quot;,\n        \&quot;description\&quot;: \&quot;**Required**. The SHA1 value to set this reference to\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;**Required**. The SHA1 value to set this reference to\&quot;\n        ]\n    }\n}\n\n                                                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                        https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                        https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                            {\n    \&quot;force\&quot;: {\n        \&quot;default\&quot;: false,\n        \&quot;description\&quot;: \&quot;Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to ```false``` will make sure you're not overwriting work. Default: ```false```\&quot;,\n        \&quot;type\&quot;: \&quot;boolean\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to ```false``` will make sure you're not overwriting work. Default: ```false```\&quot;\n        ]\n    },\n    \&quot;sha\&quot;: {\n        \&quot;default\&quot;: \&quot;aa218f56b14c9653891f9e74264a383fa43fefbd\&quot;,\n        \&quot;description\&quot;: \&quot;**Required**. The SHA1 value to set this reference to\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;**Required**. The SHA1 value to set this reference to\&quot;\n        ]\n    }\n}\n\n                                                        Note that creating a tag object does not create the reference that makes a tag in Git.  If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create]() the ```refs/tags/[tag]``` reference. If you want to create a lightweight tag, you only have to [create]() the tag reference - this call would be unnecessary.\n\n            Git Tags - Create a Tag Object\nNote that creating a tag object does not create the reference that makes a tag in Git.  If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then create the refs/tags/[tag] reference. If you want to create a lightweight tag, you only have to create the tag reference - this call would be unnecessary.\n\n                            https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                {\n    \&quot;message\&quot;: \&quot;initial version\\n\&quot;,\n    \&quot;object\&quot;: \&quot;c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c\&quot;,\n    \&quot;tag\&quot;: \&quot;v0.0.1\&quot;,\n    \&quot;tagger\&quot;: {\n        \&quot;date\&quot;: \&quot;2011-06-17T14:53:35-07:00\&quot;,\n        \&quot;email\&quot;: \&quot;schacon@gmail.com\&quot;,\n        \&quot;name\&quot;: \&quot;Scott Chacon\&quot;\n    },\n    \&quot;type\&quot;: \&quot;commit\&quot;\n}\n\n    {\n    \&quot;message\&quot;: {\n        \&quot;default\&quot;: \&quot;initial version\\n\&quot;,\n        \&quot;description\&quot;: \&quot;The tag message\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;The tag message\&quot;\n        ]\n    },\n    \&quot;object\&quot;: {\n        \&quot;default\&quot;: \&quot;c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c\&quot;,\n        \&quot;description\&quot;: \&quot;The SHA of the git object this is tagging\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;The SHA of the git object this is tagging\&quot;\n        ]\n    },\n    \&quot;tag\&quot;: {\n        \&quot;default\&quot;: \&quot;v0.0.1\&quot;,\n        \&quot;description\&quot;: \&quot;The tag\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;The tag\&quot;\n        ]\n    },\n    \&quot;tagger\&quot;: {\n        \&quot;properties\&quot;: {\n            \&quot;date\&quot;: {\n                \&quot;default\&quot;: \&quot;2011-06-17T14:53:35-07:00\&quot;,\n                \&quot;description\&quot;: \&quot;no description\&quot;,\n                \&quot;type\&quot;: \&quot;string\&quot;\n            },\n            \&quot;email\&quot;: {\n                \&quot;default\&quot;: \&quot;schacon@gmail.com\&quot;,\n                \&quot;description\&quot;: \&quot;no description\&quot;,\n                \&quot;type\&quot;: \&quot;string\&quot;\n            },\n            \&quot;name\&quot;: {\n                \&quot;default\&quot;: \&quot;Scott Chacon\&quot;,\n                \&quot;description\&quot;: \&quot;no description\&quot;,\n                \&quot;type\&quot;: \&quot;string\&quot;\n            }\n        },\n        \&quot;x-swgg-tags0\&quot;: \&quot;github-git\&quot;\n    },\n    \&quot;type\&quot;: {\n        \&quot;default\&quot;: \&quot;commit\&quot;,\n        \&quot;description\&quot;: \&quot;The type of the object we're tagging. Normally this is a ```commit``` but it can also be a ```tree``` or a ```blob```.\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;The type of the object we're tagging. Normally this is a ```commit``` but it can also be a ```tree``` or a ```blob```.\&quot;\n        ]\n    }\n}\n\n                                                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                        https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                    {\n    \&quot;base_tree\&quot;: {\n        \&quot;default\&quot;: \&quot;9fb037999f264ba9a7fc6274d15fa3ae2ab98312\&quot;,\n        \&quot;description\&quot;: \&quot;The SHA1 of the tree you want to update with new data. If you don't set this, the commit will be created on top of everything; however, it will only contain your change, the rest of your files will show up as deleted.\&quot;,\n        \&quot;type\&quot;: \&quot;string\&quot;,\n        \&quot;x-swgg-descriptionLineList\&quot;: [\n            \&quot;The SHA1 of the tree you want to update with new data. If you don't set this, the commit will be created on top of everything; however, it will only contain your change, the rest of your files will show up as deleted.\&quot;\n        ]\n    },\n    \&quot;tree\&quot;: {\n        \&quot;default\&quot;: [\n            {\n                \&quot;mode\&quot;: \&quot;100644\&quot;,\n                \&quot;path\&quot;: \&quot;file.rb\&quot;,\n                \&quot;sha\&quot;: \&quot;44b4fc6d56897b048c772eb4087f854f46256132\&quot;,\n                \&quot;type\&quot;: \&quot;blob\&quot;\n            }\n        ],\n        \&quot;description\&quot;: \&quot;no description\&quot;,\n        \&quot;items\&quot;: {\n            \&quot;$ref\&quot;: \&quot;#/definitions/_2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Ftrees_20POST.body.tree\&quot;\n        },\n        \&quot;type\&quot;: \&quot;array\&quot;\n    }\n}\n\n                                                                                                https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.\n\n                                                                                                                                        https://developer.github.com/v3/index.html#user-agent-required\nAll API requests MUST include a valid User-Agent header. Requests with no User-Agent header will be rejected. We request that you use your GitHub username, or the name of your application, for the User-Agent header value. This allows us to contact you if there are problems.\n\n        https://developer.github.com/v3/media/\nCustom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the Accept header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.&quot;
+}"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- "" -->
+<title>swgg-github-git (2018.3.25)</title>
+<style>
+/* jslint-utility2 */
+/*csslint
+*/
+/* jslint-ignore-begin */
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+/* jslint-ignore-end */
+@keyframes uiAnimateShake {
+    0%, 50% {
+        transform: translateX(10px);
+    }
+    25%, 75% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+@keyframes uiAnimateSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+a {
+    overflow-wrap: break-word;
+}
+body > div,
+body > pre,
+body > textarea,
+body > .button {
+    margin-bottom: 20px;
+}
+body > textarea {
+    height: 10rem;
+    width: 100%;
+}
+body > textarea[readonly] {
+    background: #ddd;
+}
+body > .button {
+    width: 20rem;
+}
+code,
+pre,
+textarea {
+    font-family: Consolas, Menlo, monospace;
+    font-size: small;
+}
+pre {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+textarea {
+    overflow: auto;
+    white-space: pre;
+}
+.button {
+    background-color: #fff;
+    border: 1px solid;
+    border-bottom-color: rgb(186, 186, 186);
+    border-left-color: rgb(209, 209, 209);
+    border-radius: 4px;
+    border-right-color: rgb(209, 209, 209);
+    border-top-color: rgb(216, 216, 216);
+    color: #00d;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    padding: 2px 7px 3px 7px;
+    text-align: center;
+    text-decoration: underline;
+}
+.uiAnimateShake {
+    animation-duration: 500ms;
+    animation-name: uiAnimateShake;
+}
+.uiAnimateSlide {
+    overflow-y: hidden;
+    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;
+}
+.utility2FooterDiv {
+    text-align: center;
+}
+.zeroPixel {
+    border: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    width: 0;
+}
+</style>
+<style>
+/* jslint-utility2 */
+/*csslint
+*/
+/* jslint-ignore-begin */
+.swggUiContainer,
+.swggUiContainer * {
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+}
+.swggUiContainer pre,
+.swggUiContainer .operation > .thead:focus,
+.swggUiContainer .resource > .thead > .td:focus {
+    outline: none;
+}
+.swggUiContainer .description > * {
+    margin-top: 20px;
+}
+.swggUiContainer .description > *:first-child {
+    margin-top: 0;
+}
+/* jslint-ignore-end */
+/* validateLineSortedReset */
+/* general */
+.swggUiContainer code,
+.swggUiContainer pre,
+.swggUiContainer textarea {
+    line-height: 1.25rem;
+    max-height: 50rem;
+    overflow: auto;
+}
+.swggUiContainer input,
+.swggUiContainer pre,
+.swggUiContainer textarea {
+    min-height: 1.5rem;
+}
+.swggUiContainer pre {
+    white-space: pre;
+}
+.swggUiContainer .button,
+.swggUiContainer .operation > .thead,
+.swggUiContainer .resource > .thead {
+    cursor: pointer;
+}
+.swggUiContainer .button,
+.swggUiContainer .operation > .thead > .td3,
+.swggUiContainer .resource > .thead > .td {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.swggUiContainer .markdown pre {
+    max-height: none;
+}
+.swggUiContainer .multilinePlaceholderContainer {
+    min-height: 10rem;
+    position: relative;
+}
+.swggUiContainer .multilinePlaceholderPre {
+    position: absolute;
+    white-space: pre;
+}
+.swggUiContainer .multilinePlaceholderTextarea {
+    position: absolute;
+}
+.swggUiContainer .operation > .thead > .td1 {
+    text-align: left;
+    width: 2rem;
+}
+.swggUiContainer .operation > .thead > .td2 {
+    text-align: center;
+    width: 5rem;
+}
+.swggUiContainer .responseBody,
+.swggUiContainer .responseHeaders,
+.swggUiContainer .responseStatusCode {
+    font-weight: bold;
+}
+.swggUiContainer .schemaP pre,
+.swggUiContainer .schemaP select[multiple],
+.swggUiContainer .schemaP textarea,
+.swggUiContainer .schemaP .multilinePlaceholderContainer {
+    height: 10rem;
+}
+.swggUiContainer .schemaP > .td3 {
+    overflow: visible;
+}
+.swggUiContainer .td {
+    overflow: auto;
+    overflow-wrap: break-word;
+}
+.swggUiContainer .td input,
+.swggUiContainer .td pre,
+.swggUiContainer .td select,
+.swggUiContainer .td textarea {
+    width: 100%;
+}
+/* validateLineSortedReset */
+/* background */
+.swggUiContainer code,
+.swggUiContainer pre {
+    background: #ddd;
+}
+.swggUiContainer .button {
+    background: #ddf;
+}
+.swggUiContainer .description {
+    background: #bdb;
+}
+.swggUiContainer .methodDELETE {
+    background: #b07;
+}
+.swggUiContainer .methodGET {
+    background: #373;
+}
+.swggUiContainer .methodHEAD {
+    background: #7b7;
+}
+.swggUiContainer .methodOPTIONS {
+    background: #777;
+}
+.swggUiContainer .methodPATCH {
+    background: #99f;
+}
+.swggUiContainer .methodPOST {
+    background: #33d;
+}
+.swggUiContainer .methodPUT {
+    background: #77d;
+}
+.swggUiContainer .multilinePlaceholderPre {
+    background: #fff;
+}
+.swggUiContainer .operation {
+    background: #dfd;
+}
+.swggUiContainer .resource > .thead,
+.swggUiContainer > .thead {
+    background: #7b7;
+}
+.swggUiContainer > .thead > .td1 {
+    background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAqRJREFUeNrEVz1s00AUfnGXii5maMXoEUEHVwIpEkPNgkBdMnQoU5ytiKHJwpp2Q2JIO8DCUDOxIJFIVOoWZyJSh3pp1Q2PVVlcCVBH3ufeVZZ9Zye1Ay86nXV+ue/9fO/lheg/Se02X1rvksmbnTiKvuxQMBNgBnN4a/LCbmnUAP6JV58NCUsBC8CuAJxGPF47OgNqBaA93tolUhnx6jC4NxGwyOEwlccyAs+3kwdzKq0HDn2vEBTi8J2XpyMaywNDE157BhXUE3zJhlq8GKq+Zd2zaWHepPA8oN9XkfLmRdOiJV4XUUg/IyWncLjCYY/SHndV2u7zHr3bPKZtdxgboJOnthvrfGj/oMf3G0r7JVmNlLfKklmrt2MvvcNO7LFOhoFHfuAJI5o6ta10jpt5CQLgwXhXG2YIwvu+34qf78ybOjWTnWwkgR36d7JqJOrW0hHmNrKg9xhiS4+1jFmrxymh03B0w+6kURIAu3yHtOD5oaUNojMnGgbcctNvwdAnyxvxRR+/vaJnjzbpzcZX+nN1SdGv85i9eH8w3qPO+mdm/y4dnQ1iI8Fq6Nf4cxL6GWSjiFDSs0VRnxC5g0xSB2cgHpaseTxfqOv5uoHkNQ6Ha/N1Yz9mNMppEkEkYKj79q6uCq4bCHcSX3fJ0Vk/k9siASjCm1N6gZH6Ec9IXt2WkFES2K/ixoIyktJPAu/ptOA1SgO5zqtr6KASJPF0nMV8dgMsRhRPOcMwqQAOoi0VAIMLAEWJ6YYC1c8ibj1GP51RqwzYwZVMHQuvOzMCBUtb2tGHx5NAdLKqp5AX7Ng4d+Zi8AGDI9z1ijx9yaCH04y3GCP2S+QcvaGl+pcxyUBvinFlawoDQjHSelX8hQEoIrAq8p/mgC88HOS1YCl/BRgAmiD/1gn6Nu8AAAAASUVORK5CYII=) no-repeat left center;
+}
+/* validateLineSortedReset */
+/* border */
+.swggUiContainer input,
+.swggUiContainer pre,
+.swggUiContainer select,
+.swggUiContainer textarea {
+    border: 1px solid #999;
+}
+.swggUiContainer .borderBottom1Px {
+    border-bottom: 1px solid #777;
+}
+.swggUiContainer .button {
+    border: 1px solid #35b;
+    border-radius: 5px;
+}
+.swggUiContainer .resource > .thead > .td2 {
+    border-left: 1px solid #037;
+}
+/* validateLineSortedReset */
+/* color */
+.swggUiContainer a,
+.swggUiContainer .button,
+.swggUiContainer .operation > .thead,
+.swggUiContainer .resource > .thead {
+    color: #35b;
+}
+.swggUiContainer code {
+    color: #333;
+}
+.swggUiContainer .color777 {
+    color: #777;
+}
+.swggUiContainer .label {
+    color: #373;
+}
+.swggUiContainer .multilinePlaceholderPre {
+    color: #999;
+}
+.swggUiContainer .operation > .thead > .td2,
+.swggUiContainer .resource > .thead,
+.swggUiContainer > .thead > .td1 {
+    color: #fff;
+}
+.swggUiContainer .thead,
+.swggUiContainer .tr {
+    display: flex;
+}
+/* validateLineSortedReset */
+/* flex */
+.swggUiContainer .operation > .thead > .td3 {
+    flex: 1;
+}
+.swggUiContainer .operation > .thead > .td4 {
+    flex: 1;
+}
+.swggUiContainer .resource > .thead > .td1 {
+    flex: 1;
+}
+.swggUiContainer .schemaP > .td1 {
+    flex: 2;
+}
+.swggUiContainer .schemaP > .td2 {
+    flex: 1;
+}
+.swggUiContainer .schemaP > .td3 {
+    flex: 4;
+}
+.swggUiContainer .schemaP > .td4 {
+    flex: 3;
+}
+.swggUiContainer .schemaResponse > .td1 {
+    flex: 1;
+}
+.swggUiContainer .schemaResponse > .td2 {
+    flex: 4;
+}
+.swggUiContainer > .thead > .td2 {
+    flex: 4;
+}
+.swggUiContainer > .thead > .td3 {
+    flex: 1;
+}
+/* validateLineSortedReset */
+/* margin */
+.swggUiContainer li {
+    margin-bottom: 10px;
+}
+.swggUiContainer ol,
+.swggUiContainer ul {
+    margin-left: 20px;
+}
+.swggUiContainer .description,
+.swggUiContainer .operation,
+.swggUiContainer .resource,
+.swggUiContainer > div,
+.swggUiContainer > ol,
+.swggUiContainer > pre,
+.swggUiContainer > .info > div,
+.swggUiContainer > .info > .button,
+.swggUiContainer > .info > .hx {
+    margin-bottom: 20px;
+}
+.swggUiContainer .label {
+    margin-bottom: 1px;
+}
+.swggUiContainer .operation:last-child {
+    margin-bottom: 0;
+}
+.swggUiContainer .operation > form > div,
+.swggUiContainer .operation > form > pre {
+    margin-bottom: 20px;
+}
+.swggUiContainer .operation > form > .button {
+    margin: 50px 0;
+}
+.swggUiContainer .resource > ol,
+.swggUiContainer .resource > .thead > .td,
+.swggUiContainer .td:first-child,
+.swggUiContainer > ol {
+    margin-left: 0;
+}
+.swggUiContainer .td {
+    margin-left: 20px;
+}
+/* validateLineSortedReset */
+/* padding */
+.swggUiContainer code {
+    padding: 2px;
+}
+.swggUiContainer input {
+    padding: 0 5px;
+}
+.swggUiContainer pre,
+.swggUiContainer textarea {
+    padding: 5px;
+}
+.swggUiContainer .button,
+.swggUiContainer .resource > .thead > .td,
+.swggUiContainer > .thead {
+    padding: 10px 20px;
+}
+.swggUiContainer .description {
+    padding: 20px;
+}
+.swggUiContainer .operation > form {
+    padding: 20px 20px 0 20px;
+}
+.swggUiContainer .operation > form .td1 {
+    padding-left: 0;
+}
+.swggUiContainer .operation > .thead {
+    padding: 0 20px;
+}
+.swggUiContainer .operation > .thead > .td {
+    padding: 10px 0;
+}
+.swggUiContainer > .thead > .td1 {
+    padding-left: 40px;
+    padding-top: 4px;
+}
+/* validateLineSortedReset */
+/* .textOverflowEllipsis */
+.swggUiContainer .textOverflowEllipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* validateLineSortedReset */
+/* @media */
+@media screen and (max-width: 640px) {
+    .swggUiContainer .operation {
+        font-size: small;
+    }
+    .swggUiContainer .resource > .thead > .td {
+        flex: 1;
+    }
+    .swggUiContainer > .thead {
+        display: block;
+        padding: 0;
+    }
+    .swggUiContainer > .thead > .td {
+        display: block;
+        margin: 0;
+        width: 100%;
+    }
+}
+/* validateLineSortedReset */
+/* hover */
+.swggUiContainer a:hover,
+.swggUiContainer .resource > .thead > .td:hover,
+.swggUiContainer > .thead > .td1:hover {
+    color: #037;
+}
+.swggUiContainer .button:hover,
+.swggUiContainer .operation > .thead:hover {
+    background: #bbf;
+}
+/* validateLineSortedReset */
+/* error */
+.swggUiContainer button.hasError,
+.swggUiContainer pre.hasError,
+.swggUiContainer textarea.hasError {
+    background: #fbb;
+}
+.swggUiContainer input.hasError,
+.swggUiContainer select.hasError {
+    border: 5px solid #c00;
+}
+.swggUiContainer .errorMessage {
+    color: #c00;
+}
+</style>
+</head>
+<body style="background: #ddf; font-family: Arial, Helvetica, sans-serif; margin: 0 40px;">
+<div id="ajaxProgressDiv1" style="background: transparent; height: 2px; left: 0px; margin: 0px; padding: 0px; position: fixed; top: 0px; transition: background 500ms, width 1500ms; width: 0%; z-index: 1;"></div>
+<div class="uiAnimateSpin" style="animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;"></div>
+<code style="display: none;"></code><div class="button uiAnimateShake uiAnimateSlide utility2FooterDiv zeroPixel" style="display: none;"></div><pre style="display: none;"></pre><textarea readonly="" style="display: none;"></textarea>
+<code style="display: none;"></code><div class="button uiAnimateShake uiAnimateSlide utility2FooterDiv zeroPixel" style="display: none;"></div><pre style="display: none;"></pre><textarea readonly="" style="display: none;"></textarea>
+<script></script>
+<div class="swggUiContainer" style="margin: 0 auto; max-width: 1200px;"><!-- <div class="swggUiContainer"> -->
+<h2 class="eventDelegateKeyup eventDelegateSubmit hx onEventUiReload thead">
+    <a class="td td1" href="https://github.com/kaizhu256/node-swgg" target="_blank">swgg</a>
+    <input class="td td2" placeholder="http://petstore.swagger.io/v2/swagger.json" type="text" value="https://kaizhu256.github.io/node-swgg-github-git/build..alpha..travis-ci.org/app/assets.swgg.swagger.json">
+    <input class="td td3" id="swggApiKeyInput1" placeholder="api-key" type="text" value="">
+    <button class="button eventDelegateClick onEventUiReload td td4">explore</button>
+    <button class="button eventDelegateClick onEventUiReload td td5" id="swggApiKeyClearButton1">
+        clear api-keys
+    </button>
+</h2>
+<div class="errorMessage" id="swggUiReloadErrorDiv1" style="background: none; border: 0;"></div>
+<div class="info reset">
+    
+    <h2 class="hx">
+        <a href="https://github.com/kaizhu256/node-swgg-github-git" target="_blank">swgg-github-git (2018.3.25)</a>
+    </h2>
+    
+    
+    <div class="markdown"><p>this zero-dependency package will provide a (nodejs-compatible) swagger-client for github-git's web-apis, with a working web-demo</p>
+</div>
+    
+    
+    
+    <a class="button" download="" href="https://kaizhu256.github.io/node-swgg-github-git/build..beta..travis-ci.org/app/assets.app.js">
+        download standalone app
+    </a><br>
+    
+    <ul>
+        
+        
+        
+        
+        
+        
+    </ul>
+</div>
+
+<h4 class="label">nodejs initialization</h4>
+<pre id="swggAjaxProgressPre1">/*
+ * initialize nodejs swgg-client
+ * 1. download currently-loaded apis to file swagger.json:
+ *     $ curl -L -o swagger.json "https://kaizhu256.github.io/node-swgg-github-git/build..alpha..travis-ci.org/app/assets.swgg.swagger.json"
+ * 2. npm install swgg
+ *     $ npm install swgg
+ * 3. run code below to initialize nodejs swgg-client
+ * 4. (optional) edit file swagger.json to suit your needs
+ */
+var swgg;
+swgg = require("swgg");
+swgg.apiUpdate(require("./swagger.json"));
+console.log("printing currently loaded apis ...");
+Object.keys(swgg.apiDict).sort().forEach(function (key) {
+    console.log("swgg.apiDict[" + JSON.stringify(key) + "].ajax");
+});
+console.log("initialized nodejs swgg-client");
+</pre>
+<div class="color777 reset">[ <span>base url</span>: / ]</div>
+
+<div id="swggAjaxProgressDiv1" style="text-align: center; display: none;">
+    <span>rendering swagger.json</span>
+    <div class="uiAnimateSpin" style="animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: inline-block; height: 25px; vertical-align: middle; width: 25px;"></div>
+</div>
+<ol class="reset resourceList" style="list-style-type: upper-roman;"><li class="resource
+        eventDelegateChange eventDelegateClick eventDelegateKeyup eventDelegateSubmit
+    " data-name="github-git" id="swgg_id_github_git_1">
+<h3 class="thead">
+    <span class="onEventResourceDisplayAction td td1 textOverflowEllipsis" tabindex="0">
+        github-git:&nbsp;&nbsp;# [Git Data]()
+
+The Git Database API gives you access to read and write raw Git objects to your Git database on GitHub and to list and update your references (branch heads and tags).
+
+This basically allows you to reimplement a lot of Git functionality over our API - by creating raw objects directly into the database and updating branch references you could technically do just about anything that Git can do without having Git installed.
+
+Git DB API functions will return a ```409 Conflict``` if the git repository for a Repository is empty or unavailable.  This typically means it is being created still. Contact [GitHub support]() if this response status persists.
+
+For more information on the Git object database, please read the [Git Internals]() chapter of the Pro Git book.
+
+As an example, if you wanted to commit a change to a file in your repository, you would:
+- get the current commit object
+- retrieve the tree it points to
+- retrieve the content of the blob object that tree has for that particular file path
+- change the content somehow and post a new blob object with that new content, getting a blob SHA back
+- post a new tree object with that file path pointer replaced with your new blob SHA getting a tree SHA back
+- create a new commit object with the current commit SHA as the parent and the new tree SHA, getting a commit SHA back
+- update the reference of your branch to point to the new commit SHA
+
+It might seem complex, but it's actually pretty simple when you understand the model and it opens up a ton of things you could potentially do with the API.
+
+# [Git Blobs]()
+
+Blobs leverage [these custom media types](). You can read more about the use of media types in the API [here]().
+
+**Note:** To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the [GraphQL ```node_id```]() in the response for many REST API v3 resources. See the [blog post]() for full details. To access ```node_id``` during the preview period, you must provide a custom [media type]() in the ```Accept``` header:
+```
+application/vnd.github.jean-grey-preview+json
+```
+
+**Warning:** The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact [GitHub support]().
+
+Custom media types
+
+These are the supported media types for blobs. You can read more about the use of media types in the API [here]().
+```
+application/json
+application/vnd.github.VERSION.raw
+```
+
+# [Git Commits]()
+
+**Note:** To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the [GraphQL ```node_id```]() in the response for many REST API v3 resources. See the [blog post]() for full details. To access ```node_id``` during the preview period, you must provide a custom [media type]() in the ```Accept``` header:
+```
+application/vnd.github.jean-grey-preview+json
+```
+
+**Warning:** The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact [GitHub support]().
+
+# [Git Refs]()
+
+**Note:** To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the [GraphQL ```node_id```]() in the response for many REST API v3 resources. See the [blog post]() for full details. To access ```node_id``` during the preview period, you must provide a custom [media type]() in the ```Accept``` header:
+```
+application/vnd.github.jean-grey-preview+json
+```
+
+**Warning:** The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact [GitHub support]().
+
+# [Git Tags]()
+
+This tags API only deals with tag objects - so only annotated tags, not lightweight tags.
+
+**Note:** To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the [GraphQL ```node_id```]() in the response for many REST API v3 resources. See the [blog post]() for full details. To access ```node_id``` during the preview period, you must provide a custom [media type]() in the ```Accept``` header:
+```
+application/vnd.github.jean-grey-preview+json
+```
+
+**Warning:** The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact [GitHub support]().
+
+# [Git Trees]()
+
+no description
+    </span>
+    <span class="onEventResourceDisplayAction td td2" tabindex="0">
+    expand / collapse operations
+    </span>
+</h3>
+<ol class="operationList uiAnimateSlide" style="max-height: 100%;">
+    <div class="description markdown"><h1 id="-git-data-https-developer-github-com-v3-git-"><a href="https://developer.github.com/v3/git/">Git Data</a></h1>
+<p>The Git Database API gives you access to read and write raw Git objects to your Git database on GitHub and to list and update your references (branch heads and tags).</p>
+<p>This basically allows you to reimplement a lot of Git functionality over our API - by creating raw objects directly into the database and updating branch references you could technically do just about anything that Git can do without having Git installed.</p>
+<p>Git DB API functions will return a <code>409 Conflict</code> if the git repository for a Repository is empty or unavailable.  This typically means it is being created still. Contact <a href="https://github.com/contact">GitHub support</a> if this response status persists.</p>
+<p>For more information on the Git object database, please read the <a href="http://git-scm.com/book/en/v1/Git-Internals">Git Internals</a> chapter of the Pro Git book.</p>
+<p>As an example, if you wanted to commit a change to a file in your repository, you would:</p>
+<ul>
+<li>get the current commit object</li>
+<li>retrieve the tree it points to</li>
+<li>retrieve the content of the blob object that tree has for that particular file path</li>
+<li>change the content somehow and post a new blob object with that new content, getting a blob SHA back</li>
+<li>post a new tree object with that file path pointer replaced with your new blob SHA getting a tree SHA back</li>
+<li>create a new commit object with the current commit SHA as the parent and the new tree SHA, getting a commit SHA back</li>
+<li>update the reference of your branch to point to the new commit SHA</li>
+</ul>
+<p>It might seem complex, but it's actually pretty simple when you understand the model and it opens up a ton of things you could potentially do with the API.</p>
+<h1 id="-git-blobs-https-developer-github-com-v3-git-blobs-"><a href="https://developer.github.com/v3/git/blobs/">Git Blobs</a></h1>
+<p>Blobs leverage <a href="https://developer.github.com/v3/git/blobs/#custom-media-types">these custom media types</a>. You can read more about the use of media types in the API <a href="https://developer.github.com/v3/media/">here</a>.</p>
+<p><strong>Note:</strong> To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the <a href="https://developer.github.com/v3/#graphql-global-relay-ids">GraphQL <code>node_id</code></a> in the response for many REST API v3 resources. See the <a href="https://developer.github.com/changes/2017-12-19-graphql-node-id">blog post</a> for full details. To access <code>node_id</code> during the preview period, you must provide a custom <a href="https://developer.github.com/v3/media">media type</a> in the <code>Accept</code> header:</p>
+<pre><code>application/vnd.github.jean-grey-preview+json
+</code></pre><p><strong>Warning:</strong> The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact <a href="https://github.com/contact">GitHub support</a>.</p>
+<p>Custom media types</p>
+<p>These are the supported media types for blobs. You can read more about the use of media types in the API <a href="https://developer.github.com/v3/media/">here</a>.</p>
+<pre><code>application/json
+application/vnd.github.VERSION.raw
+</code></pre><h1 id="-git-commits-https-developer-github-com-v3-git-commits-"><a href="https://developer.github.com/v3/git/commits/">Git Commits</a></h1>
+<p><strong>Note:</strong> To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the <a href="https://developer.github.com/v3/#graphql-global-relay-ids">GraphQL <code>node_id</code></a> in the response for many REST API v3 resources. See the <a href="https://developer.github.com/changes/2017-12-19-graphql-node-id">blog post</a> for full details. To access <code>node_id</code> during the preview period, you must provide a custom <a href="https://developer.github.com/v3/media">media type</a> in the <code>Accept</code> header:</p>
+<pre><code>application/vnd.github.jean-grey-preview+json
+</code></pre><p><strong>Warning:</strong> The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact <a href="https://github.com/contact">GitHub support</a>.</p>
+<h1 id="-git-refs-https-developer-github-com-v3-git-refs-"><a href="https://developer.github.com/v3/git/refs/">Git Refs</a></h1>
+<p><strong>Note:</strong> To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the <a href="https://developer.github.com/v3/#graphql-global-relay-ids">GraphQL <code>node_id</code></a> in the response for many REST API v3 resources. See the <a href="https://developer.github.com/changes/2017-12-19-graphql-node-id">blog post</a> for full details. To access <code>node_id</code> during the preview period, you must provide a custom <a href="https://developer.github.com/v3/media">media type</a> in the <code>Accept</code> header:</p>
+<pre><code>application/vnd.github.jean-grey-preview+json
+</code></pre><p><strong>Warning:</strong> The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact <a href="https://github.com/contact">GitHub support</a>.</p>
+<h1 id="-git-tags-https-developer-github-com-v3-git-tags-"><a href="https://developer.github.com/v3/git/tags/">Git Tags</a></h1>
+<p>This tags API only deals with tag objects - so only annotated tags, not lightweight tags.</p>
+<p><strong>Note:</strong> To help with migrating from our REST API v3 to GraphQL API v4, we're introducing a preview period to include the <a href="https://developer.github.com/v3/#graphql-global-relay-ids">GraphQL <code>node_id</code></a> in the response for many REST API v3 resources. See the <a href="https://developer.github.com/changes/2017-12-19-graphql-node-id">blog post</a> for full details. To access <code>node_id</code> during the preview period, you must provide a custom <a href="https://developer.github.com/v3/media">media type</a> in the <code>Accept</code> header:</p>
+<pre><code>application/vnd.github.jean-grey-preview+json
+</code></pre><p><strong>Warning:</strong> The API may change without advance notice during the preview period. Preview features are not supported for production use. If you experience any issues, contact <a href="https://github.com/contact">GitHub support</a>.</p>
+<h1 id="-git-trees-https-developer-github-com-v3-git-trees-"><a href="https://developer.github.com/v3/git/trees/">Git Trees</a></h1>
+<p>no description</p>
+</div>
+<div class="operation" data-_method-path="POST /repos/{}/{}/git/blobs" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Fblobs_20POST_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">1.</span>
+    <span class="methodPOST td td2">POST</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/blobs
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Blobs]() - Create a Blob</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="max-height: 100%;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/blobs/#create-a-blob">Git Blobs</a> - Create a Blob</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_1" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_1" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_1" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_2" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3.raw%22" id="swgg_id_accept_3">application/vnd.github.v3.raw</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_4">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_1" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_1" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_body_1" data-name="body">
+<span class="td td1">
+    body
+    
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">object</span>
+<span class="td td3">
+    
+    <div class="multilinePlaceholderContainer">
+        <pre class="multilinePlaceholderPre">{
+    "content": "Content of the blob",
+    "encoding": "utf-8"
+}</pre>
+        <textarea class="input multilinePlaceholderTextarea onEventInputTextareaChange"></textarea>
+    </div>
+    
+    
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    <pre>{
+    "content": {
+        "default": "Content of the blob",
+        "description": "**Required**. The new blob's content.",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "**Required**. The new blob's content."
+        ]
+    },
+    "encoding": {
+        "default": "utf-8",
+        "description": "The encoding used for ```content```. Currently, ```utf-8``` and ```base64``` are supported. Default: ```utf-8```.",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "The encoding used for ```content```. Currently, ```utf-8``` and ```base64``` are supported. Default: ```utf-8```."
+        ]
+    }
+}</pre>
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript">/*
+ * reproduce api-call "POST /repos/{}/{}/git/blobs"
+ * 1. initialize nodejs swgg-client from previous step
+ * 2. run code below to reproduce api-call
+ */
+swgg.apiDict["POST /repos/{}/{}/git/blobs"].ajax({
+    "paramDict": {
+        "user-agent": "Awesome-Octocat-App",
+        "accept": [
+            "application/vnd.github.jean-grey-preview+json"
+        ],
+        "owner": "owner",
+        "repo": "repo",
+        "body": {
+            "content": "Content of the blob",
+            "encoding": "utf-8"
+        }
+    }
+}, function (error, data) {
+    if (error) {
+        console.error(error);
+        return;
+    }
+    console.log(data.responseJson || data.responseText);
+});
+</pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl">curl \
+--request POST \
+--header 'user-agent: Awesome-Octocat-App' \
+--header 'accept: application/vnd.github.jean-grey-preview+json' \
+--header 'Content-Type: application/json' \
+--data-binary '{
+    "content": "Content of the blob",
+    "encoding": "utf-8"
+}' \
+"https://api.github.com/repos/owner/repo/git/blobs"</pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/blobs/{}" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Fblobs_2F_7Bsha_7D_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">2.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/blobs/{sha}
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Blobs]() - Get a Blob</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/blobs/#get-a-blob">Git Blobs</a> - Get a Blob</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_2" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_2" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_5" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_6" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3.raw%22" id="swgg_id_accept_7">application/vnd.github.v3.raw</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_8">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_2" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_2" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_sha_1" data-name="sha">
+<span class="td td1">
+    sha
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="sha" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/commits/{}#1" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Fcommits_2F_7Bsha_7D_231_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">3.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/commits/{sha}#1
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Commits]() - Commit signature verification</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/commits/#commit-signature-verification">Git Commits</a> - Commit signature verification</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_3" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_3" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_9" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_10" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_11">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_3" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_3" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_sha_2" data-name="sha">
+<span class="td td1">
+    sha
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="sha" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_verified_1" data-name="verified">
+<span class="td td1">
+    verified
+    
+    
+    <br>
+    <span class="color777 markdown"><p>Does GitHub consider the signature in this commit to be verified?</p>
+</span>
+    
+</span>
+<span class="td td2">boolean</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input">
+        
+        <option data-value-select-option="%22%24swggUndefined%22" id="swgg_id_verified_4" selected="">&lt;none&gt;</option>
+        
+        <option data-value-select-option="false" id="swgg_id_verified_2">false</option>
+        
+        <option data-value-select-option="true" id="swgg_id_verified_3">true</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_reason_1" data-name="reason">
+<span class="td td1">
+    reason
+    
+    
+    <br>
+    <span class="color777 markdown"><p>The reason for <code>verified</code> value. Possible values and their meanings are enumerated in the table below.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="abcd1234" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_signature_1" data-name="signature">
+<span class="td td1">
+    signature
+    
+    
+    <br>
+    <span class="color777 markdown"><p>The signature that was extracted from the commit.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="abcd1234" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_payload_1" data-name="payload">
+<span class="td td1">
+    payload
+    
+    
+    <br>
+    <span class="color777 markdown"><p>The value that was signed.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="abcd1234" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="POST /repos/{}/{}/git/commits" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Fcommits_20POST_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">4.</span>
+    <span class="methodPOST td td2">POST</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/commits
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Commits]() - Create a Commit</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/commits/#create-a-commit">Git Commits</a> - Create a Commit</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_4" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_4" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_12" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_13" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_14">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_4" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_4" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_body_2" data-name="body">
+<span class="td td1">
+    body
+    
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">object</span>
+<span class="td td3">
+    
+    <div class="multilinePlaceholderContainer">
+        <pre class="multilinePlaceholderPre">{
+    "author": {
+        "date": "2008-07-09T16:13:30+12:00",
+        "email": "schacon@gmail.com",
+        "name": "Scott Chacon"
+    },
+    "message": "my commit message",
+    "parents": [
+        "7d1b31e74ee336d15cbd21741bc88a537ed063a0"
+    ],
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABAQAdFiEESn/54jMNIrGSE6Tp6cQjvhfv7nAFAlnT71cACgkQ6cQjvhfv\n7nCWwA//XVqBKWO0zF+bZl6pggvky3Oc2j1pNFuRWZ29LXpNuD5WUGXGG209B0hI\nDkmcGk19ZKUTnEUJV2Xd0R7AW01S/YSub7OYcgBkI7qUE13FVHN5ln1KvH2all2n\n2+JCV1HcJLEoTjqIFZSSu/sMdhkLQ9/NsmMAzpf/iIM0nQOyU4YRex9eD1bYj6nA\nOQPIDdAuaTQj1gFPHYLzM4zJnCqGdRlg0sOM/zC5apBNzIwlgREatOYQSCfCKV7k\nnrU34X8b9BzQaUx48Qa+Dmfn5KQ8dl27RNeWAqlkuWyv3pUauH9UeYW+KyuJeMkU\n+NyHgAsWFaCFl23kCHThbLStMZOYEnGagrd0hnm1TPS4GJkV4wfYMwnI4KuSlHKB\njHl3Js9vNzEUQipQJbgCgTiWvRJoK3ENwBTMVkKHaqT4x9U4Jk/XZB6Q8MA09ezJ\n3QgiTjTAGcum9E9QiJqMYdWQPWkaBIRRz5cET6HPB48YNXAAUsfmuYsGrnVLYbG+\nUpC6I97VybYHTy2O9XSGoaLeMI9CsFn38ycAxxbWagk5mhclNTP5mezIq6wKSwmr\nX11FW3n1J23fWZn5HJMBsRnUCgzqzX3871IqLYHqRJ/bpZ4h20RhTyPj5c/z7QXp\neSakNQMfbbMcljkha+ZMuVQX1K9aRlVqbmv3ZMWh+OijLYVU2bc=\n=5Io4\n-----END PGP SIGNATURE-----\n",
+    "tree": "827efc6d56897b048c772eb4087f854f46256132"
+}</pre>
+        <textarea class="input multilinePlaceholderTextarea onEventInputTextareaChange"></textarea>
+    </div>
+    
+    
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    <pre>{
+    "author": {
+        "properties": {
+            "date": {
+                "default": "2008-07-09T16:13:30+12:00",
+                "description": "no description",
+                "type": "string"
+            },
+            "email": {
+                "default": "schacon@gmail.com",
+                "description": "no description",
+                "type": "string"
+            },
+            "name": {
+                "default": "Scott Chacon",
+                "description": "no description",
+                "type": "string"
+            }
+        },
+        "x-swgg-tags0": "github-git"
+    },
+    "message": {
+        "default": "my commit message",
+        "description": "**Required**. The commit message",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "**Required**. The commit message"
+        ]
+    },
+    "parents": {
+        "default": [
+            "7d1b31e74ee336d15cbd21741bc88a537ed063a0"
+        ],
+        "description": "no description",
+        "items": {
+            "type": "string"
+        },
+        "type": "array"
+    },
+    "signature": {
+        "default": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABAQAdFiEESn/54jMNIrGSE6Tp6cQjvhfv7nAFAlnT71cACgkQ6cQjvhfv\n7nCWwA//XVqBKWO0zF+bZl6pggvky3Oc2j1pNFuRWZ29LXpNuD5WUGXGG209B0hI\nDkmcGk19ZKUTnEUJV2Xd0R7AW01S/YSub7OYcgBkI7qUE13FVHN5ln1KvH2all2n\n2+JCV1HcJLEoTjqIFZSSu/sMdhkLQ9/NsmMAzpf/iIM0nQOyU4YRex9eD1bYj6nA\nOQPIDdAuaTQj1gFPHYLzM4zJnCqGdRlg0sOM/zC5apBNzIwlgREatOYQSCfCKV7k\nnrU34X8b9BzQaUx48Qa+Dmfn5KQ8dl27RNeWAqlkuWyv3pUauH9UeYW+KyuJeMkU\n+NyHgAsWFaCFl23kCHThbLStMZOYEnGagrd0hnm1TPS4GJkV4wfYMwnI4KuSlHKB\njHl3Js9vNzEUQipQJbgCgTiWvRJoK3ENwBTMVkKHaqT4x9U4Jk/XZB6Q8MA09ezJ\n3QgiTjTAGcum9E9QiJqMYdWQPWkaBIRRz5cET6HPB48YNXAAUsfmuYsGrnVLYbG+\nUpC6I97VybYHTy2O9XSGoaLeMI9CsFn38ycAxxbWagk5mhclNTP5mezIq6wKSwmr\nX11FW3n1J23fWZn5HJMBsRnUCgzqzX3871IqLYHqRJ/bpZ4h20RhTyPj5c/z7QXp\neSakNQMfbbMcljkha+ZMuVQX1K9aRlVqbmv3ZMWh+OijLYVU2bc=\n=5Io4\n-----END PGP SIGNATURE-----\n",
+        "description": "no description",
+        "type": "string"
+    },
+    "tree": {
+        "default": "827efc6d56897b048c772eb4087f854f46256132",
+        "description": "**Required**. The SHA of the tree object this commit points to",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "**Required**. The SHA of the tree object this commit points to"
+        ]
+    }
+}</pre>
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/commits/{}" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Fcommits_2F_7Bsha_7D_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">5.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/commits/{sha}
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Commits]() - Get a Commit</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/commits/#get-a-commit">Git Commits</a> - Get a Commit</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_5" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_5" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_15" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_16" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_17">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_5" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_5" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_sha_3" data-name="sha">
+<span class="td td1">
+    sha
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="sha" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="POST /repos/{}/{}/git/refs" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Frefs_20POST_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">6.</span>
+    <span class="methodPOST td td2">POST</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/refs
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Refs]() - Create a Reference</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/refs/#create-a-reference">Git Refs</a> - Create a Reference</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_6" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_6" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_18" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_19" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_20">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_6" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_6" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_body_3" data-name="body">
+<span class="td td1">
+    body
+    
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">object</span>
+<span class="td td3">
+    
+    <div class="multilinePlaceholderContainer">
+        <pre class="multilinePlaceholderPre">{
+    "ref": "refs/heads/featureA",
+    "sha": "aa218f56b14c9653891f9e74264a383fa43fefbd"
+}</pre>
+        <textarea class="input multilinePlaceholderTextarea onEventInputTextareaChange"></textarea>
+    </div>
+    
+    
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    <pre>{
+    "ref": {
+        "default": "refs/heads/featureA",
+        "description": "**Required**. The name of the fully qualified reference (ie: ```refs/heads/master```). If it doesn't start with 'refs' and have at least two slashes, it will be rejected.",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "**Required**. The name of the fully qualified reference (ie: ```refs/heads/master```). If it doesn't start with 'refs' and have at least two slashes, it will be rejected."
+        ]
+    },
+    "sha": {
+        "default": "aa218f56b14c9653891f9e74264a383fa43fefbd",
+        "description": "**Required**. The SHA1 value to set this reference to",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "**Required**. The SHA1 value to set this reference to"
+        ]
+    }
+}</pre>
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="DELETE /repos/{}/{}/git/refs/{}" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Frefs_2F_7Bref_7D_20DELETE_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">7.</span>
+    <span class="methodDELETE td td2">DELETE</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/refs/{ref}
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Refs]() - Delete a Reference</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/refs/#delete-a-reference">Git Refs</a> - Delete a Reference</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_7" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_7" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_21" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_22" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_23">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_7" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_7" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_ref_1" data-name="ref">
+<span class="td td1">
+    ref
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="ref" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/refs/{}" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Frefs_2F_7Bref_7D_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">8.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/refs/{ref}
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Refs]() - Get a Reference</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/refs/#get-a-reference">Git Refs</a> - Get a Reference</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_8" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_8" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_24" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_25" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_26">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_8" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_8" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_ref_2" data-name="ref">
+<span class="td td1">
+    ref
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="ref" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/refs" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Frefs_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">9.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/refs
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Refs]() - Get all References</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/refs/#get-all-references">Git Refs</a> - Get all References</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_9" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_9" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_27" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_28" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_29">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_9" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_9" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="PATCH /repos/{}/{}/git/refs/{}" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Frefs_2F_7Bref_7D_20PATCH_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">10.</span>
+    <span class="methodPATCH td td2">PATCH</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/refs/{ref}
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Refs]() - Update a Reference</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/refs/#update-a-reference">Git Refs</a> - Update a Reference</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_10" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_10" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_30" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_31" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_32">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_10" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_10" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_ref_3" data-name="ref">
+<span class="td td1">
+    ref
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="ref" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_body_4" data-name="body">
+<span class="td td1">
+    body
+    
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">object</span>
+<span class="td td3">
+    
+    <div class="multilinePlaceholderContainer">
+        <pre class="multilinePlaceholderPre">{
+    "force": false,
+    "sha": "aa218f56b14c9653891f9e74264a383fa43fefbd"
+}</pre>
+        <textarea class="input multilinePlaceholderTextarea onEventInputTextareaChange"></textarea>
+    </div>
+    
+    
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    <pre>{
+    "force": {
+        "default": false,
+        "description": "Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to ```false``` will make sure you're not overwriting work. Default: ```false```",
+        "type": "boolean",
+        "x-swgg-descriptionLineList": [
+            "Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to ```false``` will make sure you're not overwriting work. Default: ```false```"
+        ]
+    },
+    "sha": {
+        "default": "aa218f56b14c9653891f9e74264a383fa43fefbd",
+        "description": "**Required**. The SHA1 value to set this reference to",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "**Required**. The SHA1 value to set this reference to"
+        ]
+    }
+}</pre>
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="POST /repos/{}/{}/git/tags" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Ftags_20POST_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">11.</span>
+    <span class="methodPOST td td2">POST</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/tags
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Tags]() - Create a Tag Object
+
+Note that creating a tag object does not create the reference that makes a tag in Git.  If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create]() the ```refs/tags/[tag]``` reference. If you want to create a lightweight tag, you only have to [create]() the tag reference - this call would be unnecessary.</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/tags/#create-a-tag-object">Git Tags</a> - Create a Tag Object</p>
+<p>Note that creating a tag object does not create the reference that makes a tag in Git.  If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then <a href="https://developer.github.com/v3/git/refs/#create-a-reference">create</a> the <code>refs/tags/[tag]</code> reference. If you want to create a lightweight tag, you only have to <a href="https://developer.github.com/v3/git/refs/#create-a-reference">create</a> the tag reference - this call would be unnecessary.</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_11" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_11" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_33" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_34" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_35">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_11" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_11" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_body_5" data-name="body">
+<span class="td td1">
+    body
+    
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">object</span>
+<span class="td td3">
+    
+    <div class="multilinePlaceholderContainer">
+        <pre class="multilinePlaceholderPre">{
+    "message": "initial version\n",
+    "object": "c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c",
+    "tag": "v0.0.1",
+    "tagger": {
+        "date": "2011-06-17T14:53:35-07:00",
+        "email": "schacon@gmail.com",
+        "name": "Scott Chacon"
+    },
+    "type": "commit"
+}</pre>
+        <textarea class="input multilinePlaceholderTextarea onEventInputTextareaChange"></textarea>
+    </div>
+    
+    
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    <pre>{
+    "message": {
+        "default": "initial version\n",
+        "description": "The tag message",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "The tag message"
+        ]
+    },
+    "object": {
+        "default": "c3d0be41ecbe669545ee3e94d31ed9a4bc91ee3c",
+        "description": "The SHA of the git object this is tagging",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "The SHA of the git object this is tagging"
+        ]
+    },
+    "tag": {
+        "default": "v0.0.1",
+        "description": "The tag",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "The tag"
+        ]
+    },
+    "tagger": {
+        "properties": {
+            "date": {
+                "default": "2011-06-17T14:53:35-07:00",
+                "description": "no description",
+                "type": "string"
+            },
+            "email": {
+                "default": "schacon@gmail.com",
+                "description": "no description",
+                "type": "string"
+            },
+            "name": {
+                "default": "Scott Chacon",
+                "description": "no description",
+                "type": "string"
+            }
+        },
+        "x-swgg-tags0": "github-git"
+    },
+    "type": {
+        "default": "commit",
+        "description": "The type of the object we're tagging. Normally this is a ```commit``` but it can also be a ```tree``` or a ```blob```.",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "The type of the object we're tagging. Normally this is a ```commit``` but it can also be a ```tree``` or a ```blob```."
+        ]
+    }
+}</pre>
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/tags/{}" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Ftags_2F_7Bsha_7D_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">12.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/tags/{sha}
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Tags]() - Get a Tag</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/tags/#get-a-tag">Git Tags</a> - Get a Tag</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_12" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_12" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_36" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_37" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_38">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_12" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_12" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_sha_4" data-name="sha">
+<span class="td td1">
+    sha
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="sha" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/tags/{}#1" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Ftags_2F_7Bsha_7D_231_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">13.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/tags/{sha}#1
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Tags]() - Tag signature verification</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/tags/#tag-signature-verification">Git Tags</a> - Tag signature verification</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_13" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_13" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_39" data-name="accept">
+<span class="td td1">
+    accept
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22application%2Fvnd.github.jean-grey-preview%2Bjson%22" id="swgg_id_accept_40" selected="">application/vnd.github.jean-grey-preview+json</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_41">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_13" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_13" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_sha_5" data-name="sha">
+<span class="td td1">
+    sha
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="sha" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_verified_5" data-name="verified">
+<span class="td td1">
+    verified
+    
+    
+    <br>
+    <span class="color777 markdown"><p>Does GitHub consider the signature in this tag to be verified?</p>
+</span>
+    
+</span>
+<span class="td td2">boolean</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input">
+        
+        <option data-value-select-option="%22%24swggUndefined%22" id="swgg_id_verified_8" selected="">&lt;none&gt;</option>
+        
+        <option data-value-select-option="false" id="swgg_id_verified_6">false</option>
+        
+        <option data-value-select-option="true" id="swgg_id_verified_7">true</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_reason_2" data-name="reason">
+<span class="td td1">
+    reason
+    
+    
+    <br>
+    <span class="color777 markdown"><p>The reason for <code>verified</code> value. Possible values and their meanings are enumerated in the table below.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="abcd1234" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_signature_2" data-name="signature">
+<span class="td td1">
+    signature
+    
+    
+    <br>
+    <span class="color777 markdown"><p>The signature that was extracted from the tag.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="abcd1234" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_payload_2" data-name="payload">
+<span class="td td1">
+    payload
+    
+    
+    <br>
+    <span class="color777 markdown"><p>The value that was signed.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="abcd1234" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="POST /repos/{}/{}/git/trees" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Ftrees_20POST_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">14.</span>
+    <span class="methodPOST td td2">POST</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/trees
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Trees]() - Create a Tree
+
+The tree creation API will take nested entries as well. If both a tree and a nested path modifying that tree are specified, it will overwrite the contents of that tree with the new path contents and write a new tree out.</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/trees/#create-a-tree">Git Trees</a> - Create a Tree</p>
+<p>The tree creation API will take nested entries as well. If both a tree and a nested path modifying that tree are specified, it will overwrite the contents of that tree with the new path contents and write a new tree out.</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_14" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_14" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_42" data-name="accept">
+<span class="td td1">
+    accept
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22%24swggUndefined%22" id="swgg_id_accept_44" selected="">&lt;none&gt;</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_43">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_14" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_14" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_body_6" data-name="body">
+<span class="td td1">
+    body
+    
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">object</span>
+<span class="td td3">
+    
+    <div class="multilinePlaceholderContainer">
+        <pre class="multilinePlaceholderPre">{
+    "base_tree": "9fb037999f264ba9a7fc6274d15fa3ae2ab98312",
+    "tree": [
+        {
+            "mode": "100644",
+            "path": "file.rb",
+            "sha": "44b4fc6d56897b048c772eb4087f854f46256132",
+            "type": "blob"
+        }
+    ]
+}</pre>
+        <textarea class="input multilinePlaceholderTextarea onEventInputTextareaChange"></textarea>
+    </div>
+    
+    
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    <pre>{
+    "base_tree": {
+        "default": "9fb037999f264ba9a7fc6274d15fa3ae2ab98312",
+        "description": "The SHA1 of the tree you want to update with new data. If you don't set this, the commit will be created on top of everything; however, it will only contain your change, the rest of your files will show up as deleted.",
+        "type": "string",
+        "x-swgg-descriptionLineList": [
+            "The SHA1 of the tree you want to update with new data. If you don't set this, the commit will be created on top of everything; however, it will only contain your change, the rest of your files will show up as deleted."
+        ]
+    },
+    "tree": {
+        "default": [
+            {
+                "mode": "100644",
+                "path": "file.rb",
+                "sha": "44b4fc6d56897b048c772eb4087f854f46256132",
+                "type": "blob"
+            }
+        ],
+        "description": "no description",
+        "items": {
+            "$ref": "#/definitions/_2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Ftrees_20POST.body.tree"
+        },
+        "type": "array"
+    }
+}</pre>
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/trees/{}" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Ftrees_2F_7Bsha_7D_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">15.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/trees/{sha}
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Trees]() - Get a Tree</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/trees/#get-a-tree">Git Trees</a> - Get a Tree</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_15" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_15" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_45" data-name="accept">
+<span class="td td1">
+    accept
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22%24swggUndefined%22" id="swgg_id_accept_47" selected="">&lt;none&gt;</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_46">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_15" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_15" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_sha_6" data-name="sha">
+<span class="td td1">
+    sha
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="sha" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+<div class="operation" data-_method-path="GET /repos/{}/{}/git/trees/{}#1" id="swgg_id__2Frepos_2F_7Bowner_7D_2F_7Brepo_7D_2Fgit_2Ftrees_2F_7Bsha_7D_231_20GET_1">
+<div class="onEventInputValidate onEventOperationDisplayShow thead" tabindex="0">
+    <span class="td td1">16.</span>
+    <span class="methodGET td td2">GET</span>
+    <span class="td td3">
+        /repos/{owner}/{repo}/git/trees/{sha}#1
+    </span>
+    <span class="color777 td td4 textOverflowEllipsis">[Git Trees]() - Get a Tree Recursively</span>
+</div>
+<form accept-charset="UTF-8" class="uiAnimateSlide" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;">
+    
+    <h4 class="label">description</h4>
+    <div class="description markdown">
+        <p><a href="https://developer.github.com/v3/git/trees/#get-a-tree-recursively">Git Trees</a> - Get a Tree Recursively</p>
+
+    </div>
+    
+    <h4 class="label">parameters</h4>
+    <div class="borderBottom1Px color777 schemaP thead">
+        <span class="td td1">name and description</span>
+        <span class="td td2">data type</span>
+        <span class="td td3">value</span>
+        <span class="td td4">schema</span>
+    </div>
+    
+    <div class="schemaP tr" id="swgg_id_access_token_16" data-name="access_token">
+<span class="td td1">
+    access_token
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/#authentication">https://developer.github.com/v3/#authentication</a></p>
+<p>OAuth2 token (sent as a parameter)</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="xxxxxxxx" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_user_agent_16" data-name="user-agent">
+<span class="td td1">
+    user-agent
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/index.html#user-agent-required">https://developer.github.com/v3/index.html#user-agent-required</a></p>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="Awesome-Octocat-App" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_accept_48" data-name="accept">
+<span class="td td1">
+    accept
+    
+    
+    <br>
+    <span class="color777 markdown"><p><a href="https://developer.github.com/v3/media/">https://developer.github.com/v3/media/</a></p>
+<p>Custom media types are used in the API to let consumers choose the format of the data they wish to receive. This is done by adding one or more of the following types to the <code>Accept</code> header when you make a request. Media types are specific to resources, allowing them to change independently and support formats that other resources don't.</p>
+</span>
+    
+</span>
+<span class="td td2">array<br>(string)</span>
+<span class="td td3">
+    
+    
+    
+    <select class="input" multiple="">
+        
+        <option data-value-select-option="%22%24swggUndefined%22" id="swgg_id_accept_50" selected="">&lt;none&gt;</option>
+        
+        <option data-value-select-option="%22application%2Fvnd.github.v3%2Bjson%22" id="swgg_id_accept_49">application/vnd.github.v3+json</option>
+        
+    </select>
+    
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_owner_16" data-name="owner">
+<span class="td td1">
+    owner
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="owner" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_repo_16" data-name="repo">
+<span class="td td1">
+    repo
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="repo" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_sha_7" data-name="sha">
+<span class="td td1">
+    sha
+    <br><span style="font-weight: bold;">(required)</span>
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="sha" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    <div class="schemaP tr" id="swgg_id_recursive_1" data-name="recursive">
+<span class="td td1">
+    recursive
+    
+    
+    <br>
+    <span class="color777 markdown"><p>no description</p>
+</span>
+    
+</span>
+<span class="td td2">string</span>
+<span class="td td3">
+    
+    
+    
+    
+    <input class="input" placeholder="1" type="text">
+    
+    <div class="errorMessage"></div>
+</span>
+<span class="td td4">
+    
+</span>
+</div>
+
+    
+    
+    <h4 class="label">response messages</h4>
+    <div class="borderBottom1Px color777 schemaResponse thead">
+        <span class="td td1">http status code</span>
+        <span class="td td2">reason</span>
+    </div>
+    
+    <div class="schemaResponse tr">
+        <span class="td td1">default</span>
+        <span class="markdown td td2"><p>default response</p>
+</span>
+    </div>
+    
+    <button class="button onEventOperationAjax">try it out!</button>
+    <h4 class="label">nodejs request</h4>
+    <pre class="requestJavascript"></pre>
+    <h4 class="label">curl request</h4>
+    <pre class="requestCurl"></pre>
+    <h4 class="label">response status code</h4>
+    <pre class="responseStatusCode" tabindex="0"></pre>
+    <h4 class="label">response headers</h4>
+    <pre class="responseHeaders"></pre>
+    <h4 class="label">response body</h4>
+    <pre class="responseBody"></pre>
+    <div class="responseMedia"></div>
+</form>
+</div>
+</ol>
+</li>
+</ol>
+<div class="utility2FooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-swgg" target="_blank">swgg</a>
+    ]
+</div>
+<!-- </div> -->
+</div>
+<script></script>
+<script></script>
+<script></script>
+
+
+</body></html>
