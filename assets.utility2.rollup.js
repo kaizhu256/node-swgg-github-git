@@ -26409,7 +26409,7 @@ window.swgg.uiEventListenerDict[".onEventUiReload"]({ swggInit: true });\n\
          * this function will show/hide the textarea's multiline placeholder
          */
             var isTransparent, value;
-            isTransparent = event.target2.style.background === 'transparent';
+            isTransparent = event.target2.style.background.indexOf('transparent') >= 0;
             value = event.target2.value;
             if (value && isTransparent) {
                 event.target2.style.background = '';

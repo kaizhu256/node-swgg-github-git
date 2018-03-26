@@ -231,7 +231,7 @@
     },
     "info": {
         "title": "swgg-github-git",
-        "version": "2018.1.16",
+        "version": "2018.3.25",
         "x-swgg-description": "this zero-dependency package will provide a (nodejs-compatible) swagger-client for github-git's web-apis, with a working web-demo",
         "x-swgg-homepage": "https://github.com/kaizhu256/node-swgg-github-git"
     },
